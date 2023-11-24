@@ -7,6 +7,10 @@ import tkinter.font as font
 from functools import partial
 from pyresparser import ResumeParser
 from sklearn import datasets, linear_model 
+import nltk
+import scapy
+nltk.download('stopwords')
+
 
 class train_model:
     
@@ -19,8 +23,6 @@ class train_model:
                 array[i][0]=1
             else:
                 array[i][0]=0
-
-
         df=pd.DataFrame(array)
 
         maindf =df[[0,1,2,3,4,5,6]]
@@ -182,14 +184,14 @@ def perdict_person():
     extraversion.place(x=450, y=370, width=160)
 
     submitBtn=Button(top, padx=2, pady=0, text="Submit", bd=0, foreground='white', bg='red', font=(12))
-    submitBtn.config(command=lambda: prediction_result(top,sName,loc,(gender.get(),age.get(),openness.get(),neuroticism.get(),conscientiousness.get(),agreeableness.get(),extraversion.get())))
+    submitBtn.config(command=lambda: prediction_result(top, sName, loc, (gender.get(), age.get(), openness.get(), neuroticism.get(), conscientiousness.get(), agreeableness.get(), extraversion.get())))
     submitBtn.place(x=350, y=400, width=200)
     
 
     top.mainloop()
 
 def OpenFile(b4):
-    global loc;
+    global loc
     name = filedialog.askopenfilename(initialdir="C:/Users/Batman/Documents/Programming/tkinter/",
                             filetypes =(("Document","*.docx*"),("PDF","*.pdf*"),('All files', '*')),
                            title = "Choose a file."
